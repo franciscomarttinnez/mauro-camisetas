@@ -4,18 +4,19 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Panel de administración</title>
+</head>
+<body>
+	<!-- Contenedor explícito para que Decap monte la app -->
+	<div id="nc-root"></div>
 
 	<!-- Netlify Identity (login) -->
 	<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
 	<!-- Decap CMS -->
 	<script src="https://unpkg.com/decap-cms@latest/dist/decap-cms.js"></script>
-</head>
-<body>
-	<noscript>Este panel requiere JavaScript habilitado.</noscript>
 
 	<script>
-		// Si el usuario inicia sesión, aseguramos recarga del panel
+		// Asegura recarga del panel tras login
 		if (window.netlifyIdentity) {
 			window.netlifyIdentity.on("init", (user) => {
 				if (!user) {
