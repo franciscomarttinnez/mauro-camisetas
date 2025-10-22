@@ -1,6 +1,6 @@
 backend:
-name: git-gateway
-branch: main
+  name: git-gateway
+  branch: main
 
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
@@ -8,17 +8,45 @@ public_folder: "/assets/uploads"
 site_url: "https://mauro-camisetas.netlify.app"
 
 collections:
-- name: "productos"
-label: "Productos"
-folder: "content/productos"
-create: true
-slug: "{{slug}}"
-fields:
-- { label: "Nombre del producto", name: "nombre", widget: "string" }
-- { label: "Club", name: "club", widget: "string" }
-- { label: "Precio", name: "precio", widget: "number", value_type: "float", min: 0 }
-- { label: "Talles disponibles", name: "talles", widget: "list", field: {label: "Talle", name: "talle", widget: "string"} }
-- { label: "Descripción", name: "descripcion", widget: "text" }
-- { label: "Imágenes del producto", name: "imagenes", widget: "list", field: {label: "Imagen", name: "imagen", widget: "image"} }
-- { label: "Enlace a WhatsApp", name: "whatsapp", widget: "string", default: "https://wa.me/549..." }
-- { label: "Enlace a Instagram", name: "instagram", widget: "string", default: "https://instagram.com/..." }
+  - name: "productos"
+    label: "Productos"
+    folder: "content/productos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Nombre del producto"
+        name: "nombre"
+        widget: "string"
+      - label: "Club"
+        name: "club"
+        widget: "string"
+      - label: "Precio"
+        name: "precio"
+        widget: "number"
+        value_type: "float"
+        min: 0
+      - label: "Talles disponibles"
+        name: "talles"
+        widget: "list"
+        field:
+          label: "Talle"
+          name: "talle"
+          widget: "string"
+      - label: "Descripción"
+        name: "descripcion"
+        widget: "text"
+      - label: "Imágenes del producto"
+        name: "imagenes"
+        widget: "list"
+        field:
+          label: "Imagen"
+          name: "imagen"
+          widget: "image"
+      - label: "Enlace a WhatsApp"
+        name: "whatsapp"
+        widget: "string"
+        default: "https://wa.me/549..."
+      - label: "Enlace a Instagram"
+        name: "instagram"
+        widget: "string"
+        default: "https://instagram.com/..."
