@@ -1,0 +1,205 @@
+body {
+    font-family: 'Zalando Sans Expanded', sans-serif;
+}
+
+.seccionlogo {
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding-top: -100px;
+	background-image: url("./assets/fondocancha.png"); 
+	background-size: cover;       
+	background-position: center;  
+	background-repeat: no-repeat; 
+}
+
+.seccionlogo .contenido {
+	color: #fff; 
+	background: rgba(0, 0, 0, 0.5); 
+	padding: 20px;
+	border-radius: 12px;
+}
+
+.seccionlogo {
+    min-height: 100vh;              
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.contenedorlogo {
+    transform: translateY(-200px);   
+}
+
+
+.logo {
+    max-width: 150px;               
+    height: auto;
+}
+
+
+.btn-primary {
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: #2551FF;
+    border: rgb(0, 48, 136);
+	border-width: 0.15rem;
+	border-style: solid;
+    font-weight: 400;
+}
+.btn-primary:hover {
+	transform: scale(1.1); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+    background-color: #2741d4;
+}
+
+
+#catalogo { overflow: hidden; }
+
+.carousel-row {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: calc(20% - 12px); 
+	gap: 15px;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	padding: 6px 4px 10px;
+}
+
+
+@media (max-width: 992px) {
+	.carousel-row { grid-auto-columns: calc(33.333% - 10px); }
+}
+@media (max-width: 576px) {
+	.carousel-row { grid-auto-columns: calc(50% - 8px); }
+}
+
+
+.carousel-row::-webkit-scrollbar { height: 0; }
+.carousel-row { scrollbar-width: none; }
+
+
+.item {
+	scroll-snap-align: start;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	text-decoration: none;
+	color: #000000;
+	background: #ffffff;
+	border-radius: 12px;
+	overflow: hidden;
+	border: 0.15rem solid rgba(204, 204, 204, 0.719);
+	transition: transform .2s ease, box-shadow .2s ease;
+}
+.item:hover {
+	transform: translateY(-2px);
+}
+
+.item img {
+	width: 100%;
+	aspect-ratio: 3/4;        
+	object-fit: cover;
+	display: block;
+}
+
+.item h5 {
+	font-size: 0.95rem;
+	font-weight: 600;
+	padding: 8px 10px 12px;
+	margin: 0;
+}
+
+
+.carousel-btn {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 2;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	border: none;
+	background: rgba(0,0,0,.5);
+	color: #fff;
+	font-size: 28px;
+	line-height: 1;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition: background .2s ease, transform .2s ease;
+}
+.carousel-btn:hover { background: rgba(0,0,0,.75); transform: translateY(-50%) scale(1.05); }
+.carousel-btn.left  { left: -4px; }
+.carousel-btn.right { right: -4px; }
+
+
+@media (max-width: 576px) {
+	.carousel-btn.left  { left: 4px; }
+	.carousel-btn.right { right: 4px; }
+}
+html { scroll-behavior: smooth; }
+
+
+.social {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255,255,255,.08);
+	border: 1px solid rgba(255,255,255,.18);
+	transition: transform .2s ease, background .2s ease;
+}
+.social:hover { transform: scale(1.06); background: rgba(255,255,255,.16); }
+
+.social img {
+	width: 32px;
+	height: 32px;
+	display: block;
+}
+
+#galeriaLocal {
+	max-width: 550px;  
+	margin: 0 auto;     
+	border-radius: 12px;
+	overflow: hidden;
+}
+.consulta {
+	background-color: #2551FF;
+}
+footer .social {
+	width: 40px;
+	height: 40px;
+	transition: transform .2s ease, background .2s ease;
+}
+footer .social:hover {
+	transform: scale(1.06);
+	background: rgba(255,255,255,.2)!important;
+}
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05); /* se agranda un 5% */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* le agrega sombra */
+}
+.btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05); /* se agranda un 5% */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* le agrega sombra */
+}
+.navbar {
+	position: sticky;   /* o fixed si querés que quede pegado */
+	top: 0;
+	z-index: 1100;      /* mayor que cualquier z-index de la página */
+}
