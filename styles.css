@@ -204,35 +204,38 @@ footer .social:hover {
 	z-index: 1100;      /* mayor que cualquier z-index de la página */
 }
 
-/* === Ajustes específicos para catálogo === */
+/* === Ajustes visuales del modal del catálogo === */
 
-#gridProductos .card {
-	max-width: 220px;
-	margin: 0 auto;
-	transition: transform 0.2s ease, box-shadow 0.2s ease;
+#modalProducto .modal-dialog {
+	max-width: 700px; /* reduce ancho total */
 }
 
-#gridProductos .card:hover {
-	transform: translateY(-4px);
-	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+#modalProducto .modal-body img {
+	max-height: 420px; /* limita altura de la imagen */
+	object-fit: contain;
 }
 
-#gridProductos img {
-	object-fit: cover;
-	border-radius: 0.4rem 0.4rem 0 0;
+#modalProducto .carousel {
+	background-color: #f8f9fa; /* fondo claro como el sitio */
+	border-radius: 0.5rem;
 }
 
-/* Que las columnas se alineen más aireadas */
-#gridProductos .col-6,
-#gridProductos .col-md-4,
-#gridProductos .col-lg-3 {
+#modalProducto .modal-body {
+	padding-bottom: 1rem;
+}
+
+#modalProducto .modal-footer {
 	display: flex;
 	justify-content: center;
+	gap: 1rem;
 }
 
-/* Ajuste para pantallas pequeñas */
 @media (max-width: 576px) {
-	#gridProductos .card {
-		max-width: 160px;
+	#modalProducto .modal-dialog {
+		max-width: 95%;
+		margin: 1rem auto;
+	}
+	#modalProducto .modal-body img {
+		max-height: 280px;
 	}
 }
