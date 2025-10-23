@@ -23,12 +23,12 @@
         "/assets/uploads/imagen_2025-10-23_003717749.png",
         "/assets/uploads/imagen_2025-10-23_013457108.png"
       ],
-      "precio": 45000,
+      "precio": 20000,
       "nombre": "Camiseta Boca",
       "descripcion": "Camiseta Boca",
       "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
       "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
-      "etiqueta": "Nuevo",
+      "etiqueta": "Promo",
       "club": "Boca",
       "talles": [
         "S",
