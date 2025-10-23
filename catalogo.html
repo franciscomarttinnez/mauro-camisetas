@@ -78,10 +78,32 @@
 				</div>
 
 				<!-- Buscador con tamaño moderado -->
-				<div class="input-group mb-4">
-					<span class="input-group-text bg-success text-white">Buscar</span>
-					<input type="text" id="buscador" class="form-control" placeholder="Nombre o club...">
-				</div>
+<!-- Buscador y filtros -->
+<div class="row align-items-center g-3 mb-4">
+	<div class="col-md-6">
+		<div class="input-group">
+			<span class="input-group-text bg-success text-white">Buscar</span>
+			<input type="text" id="buscador" class="form-control" placeholder="Nombre o club...">
+		</div>
+	</div>
+
+	<div class="col-md-3">
+		<select id="filtroEtiqueta" class="form-select">
+			<option value="">Todas las etiquetas</option>
+			<option value="Nuevo">Nuevos</option>
+			<option value="Promo">Promos</option>
+		</select>
+	</div>
+
+	<div class="col-md-3">
+		<select id="ordenPrecio" class="form-select">
+			<option value="">Ordenar por precio</option>
+			<option value="asc">Menor a mayor</option>
+			<option value="desc">Mayor a menor</option>
+		</select>
+	</div>
+</div>
+
 
 				<!-- Grid responsive, espacios moderados -->
 				<div id="gridProductos" class="row g-3 g-sm-4"></div>
@@ -124,120 +146,136 @@
 
 
 <script>
-	// URL del manifiesto (lista única) creado por el CMS
-	const CATALOGO_URL = "content/catalogo.json";
+// URL del catálogo generado por el CMS
+const CATALOGO_URL = "content/catalogo.json";
 
-	const grid = document.getElementById("gridProductos");
-	const buscador = document.getElementById("buscador");
-	let productos = [];
-	let productosFiltrados = [];
+const grid = document.getElementById("gridProductos");
+const buscador = document.getElementById("buscador");
+const filtroEtiqueta = document.getElementById("filtroEtiqueta");
+const ordenPrecio = document.getElementById("ordenPrecio");
 
-	// Utilidad: normaliza array de talles (por si viene como objetos {talle:"M"})
-	function normalizarTalles(raw) {
-		if (!Array.isArray(raw)) return [];
-		// Si los elementos son objetos con "talle", mapeamos; si ya son strings, devolvemos tal cual
-		return raw.map(t => (typeof t === "object" && t !== null && "talle" in t) ? String(t.talle) : String(t));
-	}
+let productos = [];
+let productosFiltrados = [];
 
-	// Utilidad: normaliza imágenes (pueden venir como objetos {imagen:"/ruta"} o strings)
-	function normalizarImagenes(raw) {
-		if (!Array.isArray(raw)) return [];
-		return raw.map(img => (typeof img === "object" && img !== null && "imagen" in img) ? String(img.imagen) : String(img));
-	}
+// --- FUNCIONES DE APOYO ---
+function normalizarTalles(raw) {
+	if (!Array.isArray(raw)) return [];
+	return raw.map(t => (typeof t === "object" && t.talle) ? t.talle : t);
+}
 
-	function cardProducto(p, i) {
-		const primera = p.imagenes?.[0] || "./assets/og-image.jpg";
-		return `
-			<div class="col-6 col-md-4 col-lg-3">
-				<div class="card h-100 shadow-sm border-0" role="button"
-					data-index="${i}" data-bs-toggle="modal" data-bs-target="#modalProducto">
-					<div class="ratio ratio-1x1">
-						<img src="${primera}" class="rounded-top object-fit-cover" alt="${p.nombre}">
-					</div>
-					<div class="card-body text-center py-3">
-						<h6 class="fw-bold mb-1">${p.nombre}</h6>
-						<p class="text-muted mb-0 small">${p.club}</p>
-					</div>
+function normalizarImagenes(raw) {
+	if (!Array.isArray(raw)) return [];
+	return raw.map(img => (typeof img === "object" && img.imagen) ? img.imagen : img);
+}
+
+function cardProducto(p, i) {
+	const primera = p.imagenes?.[0] || "./assets/og-image.jpg";
+	const badge = p.etiqueta
+		? `<span class="position-absolute top-0 start-0 m-2 badge ${p.etiqueta === 'Promo' ? 'bg-danger' : 'bg-success'}">${p.etiqueta}</span>`
+		: "";
+
+	return `
+	<div class="col-6 col-md-4 col-lg-3">
+		<div class="card h-100 shadow-sm border-0 position-relative" role="button"
+			 data-index="${i}" data-bs-toggle="modal" data-bs-target="#modalProducto">
+			${badge}
+			<div class="ratio ratio-1x1">
+				<img src="${primera}" class="rounded-top object-fit-cover" alt="${p.nombre}">
+			</div>
+			<div class="card-body text-center py-3">
+				<h6 class="fw-bold mb-1">${p.nombre}</h6>
+				<p class="text-muted mb-0 small">${p.club}</p>
+			</div>
+		</div>
+	</div>`;
+}
+
+function renderProductos() {
+	grid.innerHTML = productosFiltrados.map((p, i) => cardProducto(p, i)).join("");
+}
+
+// --- FILTROS Y ORDEN ---
+function aplicarFiltros() {
+	const q = buscador.value.trim().toLowerCase();
+	const etiqueta = filtroEtiqueta.value;
+	const orden = ordenPrecio.value;
+
+	productosFiltrados = productos.filter(p => {
+		const matchTexto = p.nombre.toLowerCase().includes(q) || p.club.toLowerCase().includes(q);
+		const matchEtiqueta = etiqueta ? p.etiqueta === etiqueta : true;
+		return matchTexto && matchEtiqueta;
+	});
+
+	if (orden === "asc") productosFiltrados.sort((a, b) => a.precio - b.precio);
+	if (orden === "desc") productosFiltrados.sort((a, b) => b.precio - a.precio);
+
+	renderProductos();
+}
+
+buscador.addEventListener("input", aplicarFiltros);
+filtroEtiqueta.addEventListener("change", aplicarFiltros);
+ordenPrecio.addEventListener("change", aplicarFiltros);
+
+// --- MODAL ---
+grid.addEventListener("click", (e) => {
+	const card = e.target.closest("[data-index]");
+	if (!card) return;
+	const p = productosFiltrados[card.dataset.index];
+
+	document.getElementById("modalTitulo").textContent = p.nombre || "";
+	document.getElementById("modalDescripcion").textContent = p.descripcion || "";
+	document.getElementById("modalTalles").textContent = (p.talles || []).join(", ");
+	document.getElementById("modalPrecio").textContent = Number(p.precio || 0).toLocaleString("es-AR");
+	document.getElementById("modalWhatsapp").href = p.whatsapp || "#";
+	document.getElementById("modalInstagram").href = p.instagram || "#";
+
+	const cont = document.getElementById("modalImagenes");
+	const imgs = p.imagenes && p.imagenes.length ? p.imagenes : ["./assets/og-image.jpg"];
+	cont.innerHTML = imgs.map((src, i) => `
+		<div class="carousel-item ${i === 0 ? "active" : ""}">
+			<img src="${src}" class="d-block w-100" alt="">
+		</div>`).join("");
+});
+
+// --- CARGA DEL CATÁLOGO ---
+async function cargarCatalogo() {
+	try {
+		const res = await fetch(`${CATALOGO_URL}?v=${Date.now()}`, { cache: "no-store" });
+		if (!res.ok) throw new Error(`HTTP ${res.status}`);
+		const data = await res.json();
+		const items = Array.isArray(data?.items) ? data.items : [];
+
+		productos = items.map(item => {
+			const talles = normalizarTalles(item.talles);
+			const imagenes = normalizarImagenes(item.imagenes);
+			return {
+				nombre: item.nombre || "",
+				club: item.club || "",
+				precio: Number(item.precio || 0),
+				talles,
+				descripcion: item.descripcion || "",
+				imagenes,
+				whatsapp: item.whatsapp || "",
+				instagram: item.instagram || "",
+				etiqueta: item.etiqueta || ""
+			};
+		});
+
+		productosFiltrados = productos.slice();
+		renderProductos();
+	} catch (err) {
+		console.error("No se pudo cargar el catálogo:", err);
+		grid.innerHTML = `
+			<div class="col-12">
+				<div class="alert alert-warning">
+					No pudimos cargar el catálogo. Reintentá en unos segundos o comunicate por WhatsApp/Instagram.
 				</div>
 			</div>`;
 	}
+}
 
-	function renderProductos() {
-		grid.innerHTML = productosFiltrados.map((p, i) => cardProducto(p, i)).join("");
-	}
+cargarCatalogo();
 
-	// Filtro por nombre o club
-	buscador.addEventListener("input", (e) => {
-		const q = e.target.value.trim().toLowerCase();
-		productosFiltrados = productos.filter(p =>
-			p.nombre.toLowerCase().includes(q) || p.club.toLowerCase().includes(q)
-		);
-		renderProductos();
-	});
-
-	// Click en card → abrir modal con galería y datos
-	grid.addEventListener("click", (e) => {
-		const card = e.target.closest("[data-index]");
-		if (!card) return;
-		const p = productosFiltrados[card.dataset.index];
-
-		document.getElementById("modalTitulo").textContent = p.nombre || "";
-		document.getElementById("modalDescripcion").textContent = p.descripcion || "";
-		document.getElementById("modalTalles").textContent = (p.talles || []).join(", ");
-		document.getElementById("modalPrecio").textContent = Number(p.precio || 0).toLocaleString("es-AR");
-		document.getElementById("modalWhatsapp").href = p.whatsapp || "#";
-		document.getElementById("modalInstagram").href = p.instagram || "#";
-
-		const cont = document.getElementById("modalImagenes");
-		const imgs = p.imagenes && p.imagenes.length ? p.imagenes : ["./assets/og-image.jpg"];
-		cont.innerHTML = imgs.map((src, i) => `
-			<div class="carousel-item ${i === 0 ? "active" : ""}">
-				<img src="${src}" class="d-block w-100" alt="">
-			</div>`).join("");
-	});
-
-	// Carga del catálogo
-	async function cargarCatalogo() {
-		try {
-			// Bust de caché simple para ver cambios al instante
-			const url = `${CATALOGO_URL}?v=${Date.now()}`;
-			const res = await fetch(url, { cache: "no-store" });
-			if (!res.ok) throw new Error(`HTTP ${res.status}`);
-			const data = await res.json();
-
-			// Esperamos un objeto { items: [...] }
-			const items = Array.isArray(data?.items) ? data.items : [];
-
-			// Normalización de cada producto
-			productos = items.map(item => {
-				const talles = normalizarTalles(item.talles);
-				const imagenes = normalizarImagenes(item.imagenes);
-				return {
-					nombre: String(item.nombre || ""),
-					club: String(item.club || ""),
-					precio: Number(item.precio || 0),
-					talles,
-					descripcion: String(item.descripcion || ""),
-					imagenes,
-					whatsapp: String(item.whatsapp || ""),
-					instagram: String(item.instagram || "")
-				};
-			});
-
-			productosFiltrados = productos.slice();
-			renderProductos();
-		} catch (err) {
-			console.error("No se pudo cargar el catálogo:", err);
-			grid.innerHTML = `
-				<div class="col-12">
-					<div class="alert alert-warning">
-						No pudimos cargar el catálogo. Reintentá en unos segundos o comunicáte por WhatsApp/Instagram.
-					</div>
-				</div>`;
-		}
-	}
-
-	cargarCatalogo();
 </script>
 
 </body>

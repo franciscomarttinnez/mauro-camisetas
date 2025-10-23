@@ -21,6 +21,14 @@ collections:
       - label: "Club"
         name: "club"
         widget: "string"
+      - label: "Etiqueta"
+        name: "etiqueta"
+        widget: "select"
+        options:
+          - { label: "Ninguna", value: "" }
+          - { label: "Nuevo", value: "Nuevo" }
+          - { label: "Promo", value: "Promo" }
+        default: ""
       - label: "Precio"
         name: "precio"
         widget: "number"
@@ -71,6 +79,14 @@ collections:
               - label: "Club"
                 name: "club"
                 widget: "string"
+              - label: "Etiqueta"
+                name: "etiqueta"
+                widget: "select"
+                options:
+                  - { label: "Ninguna", value: "" }
+                  - { label: "Nuevo", value: "Nuevo" }
+                  - { label: "Promo", value: "Promo" }
+                default: ""
               - label: "Precio"
                 name: "precio"
                 widget: "number"
