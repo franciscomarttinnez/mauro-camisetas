@@ -24,6 +24,7 @@ collections:
       - label: "Etiqueta"
         name: "etiqueta"
         widget: "select"
+        required: false
         options:
           - { label: "Ninguna", value: "" }
           - { label: "Nuevo", value: "Nuevo" }
@@ -82,6 +83,7 @@ collections:
               - label: "Etiqueta"
                 name: "etiqueta"
                 widget: "select"
+                required: false
                 options:
                   - { label: "Ninguna", value: "" }
                   - { label: "Nuevo", value: "Nuevo" }
