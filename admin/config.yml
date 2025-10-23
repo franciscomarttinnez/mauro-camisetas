@@ -5,7 +5,7 @@ backend:
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
-site_url: "https://maurocamisetas.netlify.app"
+site_url: "https://maurocamisetasoficial.netlify.app"
 
 collections:
   - name: "productos"

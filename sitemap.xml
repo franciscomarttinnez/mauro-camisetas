@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://maurocamisetas.netlify.app/</loc>
+    <loc>https://maurocamisetasoficial.netlify.app/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://maurocamisetas.netlify.app/#catalogo-nacionales</loc>
+    <loc>https://maurocamisetasoficial.netlify.app/#catalogo-nacionales</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://maurocamisetas.netlify.app/#catalogo-seleccion</loc>
+    <loc>https://maurocamisetasoficial.netlify.app/#catalogo-seleccion</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://maurocamisetas.netlify.app/#catalogo-europa</loc>
+    <loc>https://maurocamisetasoficial.netlify.app/#catalogo-europa</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://maurocamisetas.netlify.app/#local</loc>
+    <loc>https://maurocamisetasoficial.netlify.app/#local</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://maurocamisetas.netlify.app/#faltante</loc>
+    <loc>https://maurocamisetasoficial.netlify.app/#faltante</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
