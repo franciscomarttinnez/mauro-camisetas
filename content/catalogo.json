@@ -1,8 +1,8 @@
 {
   "items": [
     {
-      "whatsapp": "https://wa.me/549...",
-      "instagram": "https://instagram.com/...",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
       "nombre": "boca",
       "club": "boca",
       "precio": 20000,
