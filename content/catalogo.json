@@ -1,18 +1,21 @@
 {
   "items": [
     {
+      "imagenes": [
+        "/assets/uploads/imagen_2025-10-23_013605614.png",
+        "/assets/uploads/imagen_2025-10-23_013617944.png"
+      ],
+      "precio": 30000,
+      "nombre": "Camiseta River",
+      "descripcion": "Camiseta river",
       "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
       "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
-      "nombre": "boca",
-      "club": "boca",
-      "precio": 20000,
+      "etiqueta": "Promo",
+      "club": "River",
       "talles": [
-        "XL"
-      ],
-      "descripcion": "msadasdasd",
-      "imagenes": [
-        "/assets/uploads/imagen_2025-10-23_003717749.png",
-        "/assets/uploads/logo.png"
+        "S",
+        "M",
+        "L"
       ]
     }
   ]
