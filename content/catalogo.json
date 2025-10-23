@@ -14,6 +14,23 @@
         "/assets/uploads/imagen_2025-10-23_003717749.png",
         "/assets/uploads/imagen_2025-10-23_013457108.png"
       ]
+    },
+    {
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "nombre": "Camiseta River",
+      "club": "River",
+      "precio": 30000,
+      "talles": [
+        "S",
+        "M",
+        "L"
+      ],
+      "descripcion": "Camiseta river",
+      "imagenes": [
+        "/assets/uploads/imagen_2025-10-23_013605614.png",
+        "/assets/uploads/imagen_2025-10-23_013617944.png"
+      ]
     }
   ]
 }
