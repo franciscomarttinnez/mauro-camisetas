@@ -51,4 +51,33 @@ collections:
         name: "instagram"
         widget: "string"
         default: "https://instagram.com/..."
+  - name: "catalogo"
+    label: "Catálogo (lista única)"
+    delete: false
+    files:
+      - file: "content/catalogo.json"
+        label: "Listado de productos"
+        name: "listado"
+        format: "json"
+        fields:
+          - label: "Productos"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.nombre}} ({{fields.club}})"
+            fields:
+              - { label: "Nombre", name: "nombre", widget: "string" }
+              - { label: "Club", name: "club", widget: "string" }
+              - { label: "Precio", name: "precio", widget: "number", value_type: "float", min: 0 }
+              - label: "Talles"
+                name: "talles"
+                widget: "list"
+                field: { label: "Talle", name: "talle", widget: "string" }
+              - { label: "Descripción", name: "descripcion", widget: "text" }
+              - label: "Imágenes"
+                name: "imagenes"
+                widget: "list"
+                field: { label: "Imagen", name: "imagen", widget: "image" }
+              - { label: "WhatsApp", name: "whatsapp", widget: "string", default: "https://wa.me/549..." }
+              - { label: "Instagram", name: "instagram", widget: "string", default: "https://instagram.com/..." }
+
 
