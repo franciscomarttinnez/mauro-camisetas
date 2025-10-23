@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Catálogo | Mauro Camisetas</title>
+	<meta name="description" content="Catálogo online de Mauro Camisetas: buscá por nombre o club y abrí cada producto para ver fotos y comprar por WhatsApp o Instagram.">
+	<meta name="robots" content="index,follow">
+	<meta name="author" content="Mauro Camisetas">
+	<link rel="canonical" href="https://mauro-camisetas.netlify.app/catalogo.html">
+
+	<!-- Open Graph -->
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="Mauro Camisetas">
+	<meta property="og:title" content="Catálogo | Mauro Camisetas">
+	<meta property="og:description" content="Buscá camisetas y productos. Ver fotos y comprar por WhatsApp o Instagram.">
+	<meta property="og:url" content="https://mauro-camisetas.netlify.app/catalogo.html">
+	<meta property="og:image" content="https://mauro-camisetas.netlify.app/assets/og-image.jpg">
+	<meta property="og:locale" content="es_AR">
+
+	<!-- Twitter Card -->
+	<meta name="twitter:card" content="summary_large_image">
+
+	<!-- Theming -->
+	<meta name="theme-color" content="#3396D3">
+
+	<!-- Favicons (mismos del index) -->
+	<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+	<link rel="icon" type="image/x-icon" href="./assets/images.png">
+
+	<!-- Fuentes y CSS (mismos del index) -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light">
+
+	<!-- NAVBAR igual a la del index -->
+	<nav class="navbar navbar-expand-md navbar-light bg-light border-bottom shadow">
+		<div class="container">
+			<a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+				<img src="./assets/images.png" alt="Logo" width="36" height="36">
+				<span class="fw-semibold">Mauro Camisetas</span>
+			</a>
+
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#mainNav"
+				aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div id="mainNav" class="collapse navbar-collapse">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" href="index.html#local">Local</a></li>
+					<li class="nav-item"><a class="nav-link" href="index.html#novedades">Novedades</a></li>
+					<li class="nav-item"><a class="nav-link" href="index.html#faltante">Contacto</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<main class="py-4">
+		<section class="py-4">
+			<div class="container">
+				<!-- Encabezado compacto, tipografías y paleta alineadas -->
+				<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-3">
+					<h1 class="h4 m-0">Catálogo Online</h1>
+					<a href="index.html" class="btn btn-outline-success btn-sm">Volver al inicio</a>
+				</div>
+
+				<!-- Buscador con tamaño moderado -->
+				<div class="input-group mb-4">
+					<span class="input-group-text bg-success text-white">Buscar</span>
+					<input type="text" id="buscador" class="form-control" placeholder="Nombre o club...">
+				</div>
+
+				<!-- Grid responsive, espacios moderados -->
+				<div id="gridProductos" class="row g-3 g-sm-4"></div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Modal con estética Bootstrap por defecto -->
+	<div class="modal fade" id="modalProducto" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalTitulo"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+				</div>
+				<div class="modal-body">
+					<div id="modalCarousel" class="carousel slide mb-3" data-bs-ride="carousel">
+						<div class="carousel-inner" id="modalImagenes"></div>
+						<button class="carousel-control-prev" type="button" data-bs-target="#modalCarousel" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon"></span>
+						</button>
+						<button class="carousel-control-next" type="button" data-bs-target="#modalCarousel" data-bs-slide="next">
+							<span class="carousel-control-next-icon"></span>
+						</button>
+					</div>
+					<p id="modalDescripcion" class="mb-2"></p>
+					<p class="mb-1"><strong>Talles:</strong> <span id="modalTalles"></span></p>
+					<p class="mb-0"><strong>Precio:</strong> $<span id="modalPrecio"></span></p>
+				</div>
+				<div class="modal-footer">
+					<a id="modalWhatsapp" class="btn btn-success" target="_blank" rel="noopener">Comprar por WhatsApp</a>
+					<a id="modalInstagram" class="btn btn-outline-danger" target="_blank" rel="noopener">Ver en Instagram</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0z4r9ENcy9XK6ImmoY65V7YpD9f3ii" crossorigin="anonymous"></script>
+
+	<!-- Script temporal con misma escala visual que el index -->
+	<script>
+		// Productos de ejemplo (hasta conectar CMS)
+		const productosEjemplo = [
+			{
+				nombre: "Camiseta Boca 1",
+				club: "Boca Juniors",
+				precio: 25000,
+				talles: ["S","M","L"],
+				descripcion: "Versión 24/25 con detalles en dorado.",
+				imagenes: ["./assets/boca11.jpg", "./assets/boca12.jpg"],
+				whatsapp: "https://wa.me/5493794040324?text=Hola%20quiero%20la%20Camiseta%20Boca%201",
+				instagram: "https://instagram.com/mauro.camisetas.oficial"
+			},
+			{
+				nombre: "Camiseta River 1",
+				club: "River Plate",
+				precio: 24000,
+				talles: ["M","L","XL"],
+				descripcion: "Nueva versión oficial 2024.",
+				imagenes: ["./assets/river11.jpg", "./assets/river26.jpg"],
+				whatsapp: "https://wa.me/5493794040324?text=Hola%20quiero%20la%20Camiseta%20River%201",
+				instagram: "https://instagram.com/mauro.camisetas.oficial"
+			}
+		];
+
+		const grid = document.getElementById("gridProductos");
+		const buscador = document.getElementById("buscador");
+		let productosFiltrados = productosEjemplo;
+
+		function cardProducto(p, i) {
+			return `
+				<div class="col-6 col-md-4 col-lg-3">
+					<div class="card h-100 shadow-sm border-0" role="button"
+						data-index="${i}" data-bs-toggle="modal" data-bs-target="#modalProducto">
+						<div class="ratio ratio-1x1">
+							<img src="${p.imagenes[0]}" class="rounded-top object-fit-cover" alt="${p.nombre}">
+						</div>
+						<div class="card-body text-center py-3">
+							<h6 class="fw-bold mb-1">${p.nombre}</h6>
+							<p class="text-muted mb-0 small">${p.club}</p>
+						</div>
+					</div>
+				</div>`;
+		}
+
+		function renderProductos() {
+			grid.innerHTML = productosFiltrados.map((p, i) => cardProducto(p, i)).join("");
+		}
+
+		buscador.addEventListener("input", (e) => {
+			const q = e.target.value.trim().toLowerCase();
+			productosFiltrados = productosEjemplo.filter(p =>
+				p.nombre.toLowerCase().includes(q) || p.club.toLowerCase().includes(q)
+			);
+			renderProductos();
+		});
+
+		grid.addEventListener("click", (e) => {
+			const card = e.target.closest("[data-index]");
+			if (!card) return;
+			const p = productosFiltrados[card.dataset.index];
+
+			document.getElementById("modalTitulo").textContent = p.nombre;
+			document.getElementById("modalDescripcion").textContent = p.descripcion;
+			document.getElementById("modalTalles").textContent = p.talles.join(", ");
+			document.getElementById("modalPrecio").textContent = p.precio.toLocaleString("es-AR");
+			document.getElementById("modalWhatsapp").href = p.whatsapp;
+			document.getElementById("modalInstagram").href = p.instagram;
+
+			const cont = document.getElementById("modalImagenes");
+			cont.innerHTML = p.imagenes.map((src, i) => `
+				<div class="carousel-item ${i === 0 ? "active" : ""}">
+					<img src="${src}" class="d-block w-100" alt="">
+				</div>`).join("");
+		});
+
+		renderProductos();
+	</script>
+</body>
+</html>
