@@ -203,3 +203,36 @@ footer .social:hover {
 	top: 0;
 	z-index: 1100;      /* mayor que cualquier z-index de la página */
 }
+
+/* === Ajustes específicos para catálogo === */
+
+#gridProductos .card {
+	max-width: 220px;
+	margin: 0 auto;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#gridProductos .card:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+#gridProductos img {
+	object-fit: cover;
+	border-radius: 0.4rem 0.4rem 0 0;
+}
+
+/* Que las columnas se alineen más aireadas */
+#gridProductos .col-6,
+#gridProductos .col-md-4,
+#gridProductos .col-lg-3 {
+	display: flex;
+	justify-content: center;
+}
+
+/* Ajuste para pantallas pequeñas */
+@media (max-width: 576px) {
+	#gridProductos .card {
+		max-width: 160px;
+	}
+}
