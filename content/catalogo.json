@@ -36,6 +36,22 @@
         "L",
         "XL"
       ]
+    },
+    {
+      "imagenes": [
+        "/assets/uploads/imagen_2025-10-23_013617944.png"
+      ],
+      "precio": 3948394,
+      "nombre": "Camisetas river",
+      "descripcion": "sdasdsd",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "etiqueta": "Promo",
+      "club": "river",
+      "talles": [
+        "L",
+        "XL"
+      ]
     }
   ]
 }
