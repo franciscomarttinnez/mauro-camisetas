@@ -52,22 +52,6 @@
         "L",
         "XL"
       ]
-    },
-    {
-      "imagenes": [
-        "/assets/uploads/imagen_2025-10-23_174718369.png",
-        "/assets/uploads/imagen_2025-10-23_174706530.png"
-      ],
-      "precio": 10000000,
-      "nombre": "Camiseta Saint Lawrence",
-      "descripcion": "Saint Lawrence Football Club T Shit",
-      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
-      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
-      "etiqueta": "",
-      "club": "Saint Lawrence",
-      "talles": [
-        "XXXXXXXL"
-      ]
     }
   ]
 }
