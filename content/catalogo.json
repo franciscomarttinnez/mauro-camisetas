@@ -62,6 +62,21 @@
       "talles": [
         "XL"
       ]
+    },
+    {
+      "etiqueta": "Nuevo",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "nombre": "Camiseta AC Milan",
+      "club": "AC Milan",
+      "talles": [
+        "L",
+        "XL"
+      ],
+      "descripcion": "Camiseta Importada AC Milan",
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/italianas7.jpg"
+      ]
     }
   ]
 }
