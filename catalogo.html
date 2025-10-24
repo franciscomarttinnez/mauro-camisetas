@@ -133,7 +133,6 @@ const CATALOGO_URL = "https://raw.githubusercontent.com/franciscomarttinnez/maur
 const CACHE_KEY = "catalogo_v1";
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutos
 
-
 const grid = document.getElementById("gridProductos");
 const buscador = document.getElementById("buscador");
 const filtroEtiqueta = document.getElementById("filtroEtiqueta");
@@ -168,6 +167,11 @@ function aRaw(url) {
 	if (m) return `https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/${m[1]}`;
 	return url;
 }
+function toJsDelivr(urlRaw) {
+	// raw.githubusercontent.com/USER/REPO/BRANCH/path -> cdn.jsdelivr.net/gh/USER/REPO@BRANCH/path
+	const m = urlRaw && urlRaw.match(/^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/);
+	return m ? `https://cdn.jsdelivr.net/gh/${m[1]}/${m[2]}@${m[3]}/${m[4]}` : urlRaw;
+}
 function normalizarTalles(raw) {
 	if (!Array.isArray(raw)) return [];
 	return raw.map(t => (typeof t === "object" && t.talle) ? t.talle : t);
@@ -176,13 +180,15 @@ function normalizarImagenes(raw) {
 	if (!Array.isArray(raw)) return [];
 	return raw.map(img => {
 		const url = (typeof img === "object" && img.imagen) ? img.imagen : img;
-		return aRaw(url);
+		return aRaw(url); // preferimos RAW (instantáneo)
 	});
 }
 
 /* ====== UI ====== */
 function cardProducto(p, i) {
 	const primera = p.imagenes?.[0] || "./assets/og-image.jpg";
+	const primary = aRaw(primera);
+	const fallback = toJsDelivr(primary);
 	const badge = p.etiqueta
 		? `<span class="position-absolute top-0 start-0 m-2 badge ${p.etiqueta === 'Promo' ? 'bg-danger' : 'bg-success'}">${p.etiqueta}</span>`
 		: "";
@@ -192,8 +198,10 @@ function cardProducto(p, i) {
 			 data-index="${i}" data-bs-toggle="modal" data-bs-target="#modalProducto">
 			${badge}
 			<div class="ratio ratio-1x1">
-				<img src="${primera}" class="rounded-top object-fit-cover" alt="${p.nombre}"
-				     onerror="this.src='./assets/og-image.jpg'">
+				<img src="${primary}" data-fallback="${fallback}"
+				     class="rounded-top object-fit-cover" alt="${p.nombre}"
+				     loading="lazy"
+				     onerror="if(this.dataset.fallback){ this.src=this.dataset.fallback; this.dataset.fallback=''; } else { this.src='./assets/og-image.jpg'; }">
 			</div>
 			<div class="card-body text-center py-3">
 				<h6 class="fw-bold mb-1">${p.nombre}</h6>
@@ -238,13 +246,19 @@ grid.addEventListener("click", (e) => {
 
 	const cont = document.getElementById("modalImagenes");
 	const imgs = p.imagenes && p.imagenes.length ? p.imagenes : ["./assets/og-image.jpg"];
-	cont.innerHTML = imgs.map((src, i) => `
-		<div class="carousel-item ${i === 0 ? "active" : ""}">
-			<img src="${aRaw(src)}" class="d-block w-100" alt="" onerror="this.src='./assets/og-image.jpg'">
-		</div>`).join("");
+	cont.innerHTML = imgs.map((src, i) => {
+		const primary = aRaw(src);
+		const fallback = toJsDelivr(primary);
+		return `
+			<div class="carousel-item ${i === 0 ? "active" : ""}">
+				<img src="${primary}" data-fallback="${fallback}"
+					 class="d-block w-100" alt="" loading="lazy"
+					 onerror="if(this.dataset.fallback){ this.src=this.dataset.fallback; this.dataset.fallback=''; } else { this.src='./assets/og-image.jpg'; }">
+			</div>`;
+	}).join("");
 });
 
-/* ====== Carga: primero cache, luego red ❯ revalidación ====== */
+/* ====== Carga: cache inmediato + red con retry + fallback a cache vencido ====== */
 function mapearItems(items) {
 	return items.map(item => ({
 		nombre: item.nombre || "",
@@ -259,43 +273,55 @@ function mapearItems(items) {
 	}));
 }
 
+// hasta 3 intentos con esperas crecientes
 async function fetchCatalogo() {
-	// cache-busting + sin usar caché del navegador
-	const url = `${CATALOGO_URL}?ts=${Date.now()}`;
-	const res = await fetch(url, { cache: "no-store" });
-	if (!res.ok) throw new Error(`HTTP ${res.status}`);
-	return await res.json();
+	const tries = 3, delay = (i) => 500 * (i + 1);
+	for (let i = 0; i < tries; i++) {
+		try {
+			const url = `${CATALOGO_URL}?ts=${Date.now()}`;
+			const res = await fetch(url, { cache: "no-store" });
+			if (res.ok) return await res.json();
+		} catch {}
+		if (i < tries - 1) await new Promise(r => setTimeout(r, delay(i)));
+	}
+	throw new Error("fetch failed");
 }
 
 async function cargarCatalogo() {
-	// 1) Mostrar al instante desde cache si existe
-	const cached = loadCache();
-	if (cached) {
-		productos = mapearItems(cached);
+	// 1) Render inmediato desde cache si existe
+	const cachedFresh = loadCache();
+	if (cachedFresh) {
+		productos = mapearItems(cachedFresh);
 		productosFiltrados = productos.slice();
 		renderProductos();
 	}
-	
-	// 2) Traer versión fresca en segundo plano
+
+	// 2) Intentar red con retry; si falla y no había cache fresco, usar cache vencido
 	try {
 		const data = await fetchCatalogo();
 		const items = Array.isArray(data?.items) ? data.items : [];
 		const mapeado = mapearItems(items);
 
-		// Si no había cache o cambió el contenido, actualizamos UI y guardamos
-		if (!cached || JSON.stringify(cached) !== JSON.stringify(items)) {
+		if (!cachedFresh || JSON.stringify(cachedFresh) !== JSON.stringify(items)) {
 			productos = mapeado;
 			productosFiltrados = productos.slice();
 			renderProductos();
-			saveCache(items); // guardamos crudo (como viene del JSON)
+			saveCache(items);
 		}
 	} catch (err) {
-		if (!cached) {
-			// Sin cache y falló el fetch: mostramos aviso
+		// fallback a cache vencido (si existe) cuando la red falla y no había cache fresco
+		const raw = localStorage.getItem(CACHE_KEY);
+		let expired = null;
+		try { expired = raw ? JSON.parse(raw).items : null; } catch {}
+		if (expired && !cachedFresh) {
+			productos = mapearItems(expired);
+			productosFiltrados = productos.slice();
+			renderProductos();
+		} else if (!cachedFresh) {
 			grid.innerHTML = `
 				<div class="col-12">
 					<div class="alert alert-warning">
-						No pudimos cargar el catálogo. Reintentá en unos segundos o comunicate por WhatsApp/Instagram.
+						No pudimos cargar el catálogo. Verificá tu conexión e intentá nuevamente.
 					</div>
 				</div>`;
 		}
@@ -305,6 +331,7 @@ async function cargarCatalogo() {
 
 cargarCatalogo();
 </script>
+
 
 
 
