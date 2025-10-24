@@ -5,8 +5,11 @@ backend:
 media_folder: "assets/uploads"
 public_folder: "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads"
 
-
 site_url: "https://maurocamisetasoficial.netlify.app"
+
+# 🔽🔽 NUEVO: hace que el formulario ocupe todo el ancho en /admin (sin preview)
+editor:
+  preview: false
 
 collections:
   - name: "productos"
