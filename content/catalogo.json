@@ -2,7 +2,7 @@
   "items": [
     {
       "imagenes": [
-        "https://cdn.jsdelivr.net/gh/franciscomarttinnez/mauro-camisetas@main/assets/uploads/imagen_2025-10-23_013617944.png"
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/river11.jpg"
       ],
       "precio": 30000,
       "nombre": "Camiseta River",
@@ -17,7 +17,7 @@
     },
     {
       "imagenes": [
-        "https://cdn.jsdelivr.net/gh/franciscomarttinnez/mauro-camisetas@main/assets/uploads/imagen_2025-10-23_003717749.png"
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/boca26.jpg"
       ],
       "precio": 25000,
       "nombre": "Camiseta Boca Juniors",
@@ -33,7 +33,7 @@
     },
     {
       "imagenes": [
-        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/imagen_2025-10-23_174706530.png",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/sanlorenzo.jpg",
         "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/imagen_2025-10-23_174718369.png"
       ],
       "precio": 35000,
@@ -50,7 +50,7 @@
     },
     {
       "imagenes": [
-        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/imagen_2025-10-23_222210692.png"
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/otros8.jpg"
       ],
       "precio": 15000,
       "nombre": "Camiseta Chaco For Ever",
@@ -64,18 +64,19 @@
       ]
     },
     {
-      "etiqueta": "Nuevo",
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/italianas7.jpg"
+      ],
+      "precio": 30000,
+      "nombre": "Camiseta AC Milan",
+      "descripcion": "Camiseta Importada AC Milan",
       "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
       "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
-      "nombre": "Camiseta AC Milan",
+      "etiqueta": "Nuevo",
       "club": "AC Milan",
       "talles": [
         "L",
         "XL"
-      ],
-      "descripcion": "Camiseta Importada AC Milan",
-      "imagenes": [
-        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/italianas7.jpg"
       ]
     }
   ]
