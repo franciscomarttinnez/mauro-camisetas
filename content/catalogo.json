@@ -30,6 +30,23 @@
         "L",
         "XL"
       ]
+    },
+    {
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/imagen_2025-10-23_174706530.png",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/imagen_2025-10-23_174718369.png"
+      ],
+      "precio": 35000,
+      "nombre": "Camiseta San Lorenzo",
+      "descripcion": "Camiseta San Lorenzo Titular ",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "etiqueta": "",
+      "club": "San Lorenzo",
+      "talles": [
+        "L",
+        "XL"
+      ]
     }
   ]
 }
