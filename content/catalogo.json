@@ -14,6 +14,22 @@
       "talles": [
         "XL"
       ]
+    },
+    {
+      "imagenes": [
+        "https://cdn.jsdelivr.net/gh/franciscomarttinnez/mauro-camisetas@main/assets/uploads/imagen_2025-10-23_003717749.png"
+      ],
+      "precio": 24998,
+      "nombre": "Camiseta Boca Juniors",
+      "descripcion": "Camiseta Boca Juniors Importada Versión Jugador",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "etiqueta": "Promo",
+      "club": "Boca Juniors",
+      "talles": [
+        "L",
+        "XL"
+      ]
     }
   ]
 }
