@@ -3,7 +3,7 @@ backend:
   branch: main
 
 media_folder: "assets/uploads"
-public_folder: "https://cdn.jsdelivr.net/gh/franciscomarttinnez/mauro-camisetas@main/assets/uploads"
+public_folder: "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads"
 
 
 site_url: "https://maurocamisetasoficial.netlify.app"

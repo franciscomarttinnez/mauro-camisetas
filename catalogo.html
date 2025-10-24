@@ -130,6 +130,8 @@
 
 <script>
 const CATALOGO_URL = "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/content/catalogo.json";
+const CACHE_KEY = "catalogo_v1";
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 1 día
 
 const grid = document.getElementById("gridProductos");
 const buscador = document.getElementById("buscador");
@@ -139,43 +141,58 @@ const ordenPrecio = document.getElementById("ordenPrecio");
 let productos = [];
 let productosFiltrados = [];
 
-/* ===== Helpers para URLs de imágenes ===== */
-function cdnToRaw(url) {
+/* ====== Cache helpers ====== */
+function loadCache() {
 	try {
-		return url.replace(
-			/^https:\/\/cdn\.jsdelivr\.net\/gh\/([^/]+)\/([^@]+)@([^/]+)\/(.+)$/,
-			"https://raw.githubusercontent.com/$1/$2/$3/$4"
-		);
-	} catch { return url; }
+		const raw = localStorage.getItem(CACHE_KEY);
+		if (!raw) return null;
+		const { ts, items } = JSON.parse(raw);
+		if (!ts || Date.now() - ts > CACHE_TTL_MS) return null; // vencido
+		if (!Array.isArray(items)) return null;
+		return items;
+	} catch { return null; }
+}
+function saveCache(items) {
+	try {
+		localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), items }));
+	} catch {}
 }
 
+/* ====== Normalizadores ====== */
+function aRaw(url) {
+	if (!url) return url;
+	let m = url.match(/^https:\/\/cdn\.jsdelivr\.net\/gh\/([^/]+)\/([^@]+)@([^/]+)\/(.+)$/);
+	if (m) return `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}/${m[4]}`;
+	m = url.match(/^https:\/\/[^.]+\.github\.io\/[^/]+\/(.+)$/);
+	if (m) return `https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/${m[1]}`;
+	return url;
+}
 function normalizarTalles(raw) {
 	if (!Array.isArray(raw)) return [];
 	return raw.map(t => (typeof t === "object" && t.talle) ? t.talle : t);
 }
-
-/* Reemplaza la función original por esta */
 function normalizarImagenes(raw) {
 	if (!Array.isArray(raw)) return [];
 	return raw.map(img => {
 		const url = (typeof img === "object" && img.imagen) ? img.imagen : img;
-		return url.includes("cdn.jsdelivr.net/gh/") ? cdnToRaw(url) : url;
+		return aRaw(url);
 	});
 }
 
+/* ====== UI ====== */
 function cardProducto(p, i) {
 	const primera = p.imagenes?.[0] || "./assets/og-image.jpg";
 	const badge = p.etiqueta
 		? `<span class="position-absolute top-0 start-0 m-2 badge ${p.etiqueta === 'Promo' ? 'bg-danger' : 'bg-success'}">${p.etiqueta}</span>`
 		: "";
-
 	return `
 	<div class="col-6 col-md-4 col-lg-3">
 		<div class="card h-100 shadow-sm border-0 position-relative" role="button"
 			 data-index="${i}" data-bs-toggle="modal" data-bs-target="#modalProducto">
 			${badge}
 			<div class="ratio ratio-1x1">
-				<img src="${primera}?v=${Date.now()}" class="rounded-top object-fit-cover" alt="${p.nombre}">
+				<img src="${primera}" class="rounded-top object-fit-cover" alt="${p.nombre}"
+				     onerror="this.src='./assets/og-image.jpg'">
 			</div>
 			<div class="card-body text-center py-3">
 				<h6 class="fw-bold mb-1">${p.nombre}</h6>
@@ -184,11 +201,9 @@ function cardProducto(p, i) {
 		</div>
 	</div>`;
 }
-
 function renderProductos() {
 	grid.innerHTML = productosFiltrados.map((p, i) => cardProducto(p, i)).join("");
 }
-
 function aplicarFiltros() {
 	const q = buscador.value.trim().toLowerCase();
 	const etiqueta = filtroEtiqueta.value;
@@ -199,13 +214,11 @@ function aplicarFiltros() {
 		const matchEtiqueta = etiqueta ? p.etiqueta === etiqueta : true;
 		return matchTexto && matchEtiqueta;
 	});
-
 	if (orden === "asc") productosFiltrados.sort((a, b) => a.precio - b.precio);
 	if (orden === "desc") productosFiltrados.sort((a, b) => b.precio - a.precio);
 
 	renderProductos();
 }
-
 buscador.addEventListener("input", aplicarFiltros);
 filtroEtiqueta.addEventListener("change", aplicarFiltros);
 ordenPrecio.addEventListener("change", aplicarFiltros);
@@ -226,49 +239,71 @@ grid.addEventListener("click", (e) => {
 	const imgs = p.imagenes && p.imagenes.length ? p.imagenes : ["./assets/og-image.jpg"];
 	cont.innerHTML = imgs.map((src, i) => `
 		<div class="carousel-item ${i === 0 ? "active" : ""}">
-			<img src="${src}?v=${Date.now()}" class="d-block w-100" alt="">
+			<img src="${aRaw(src)}" class="d-block w-100" alt="" onerror="this.src='./assets/og-image.jpg'">
 		</div>`).join("");
 });
 
+/* ====== Carga: primero cache, luego red ❯ revalidación ====== */
+function mapearItems(items) {
+	return items.map(item => ({
+		nombre: item.nombre || "",
+		club: item.club || "",
+		precio: Number(item.precio || 0),
+		talles: normalizarTalles(item.talles),
+		descripcion: item.descripcion || "",
+		imagenes: normalizarImagenes(item.imagenes),
+		whatsapp: item.whatsapp || "",
+		instagram: item.instagram || "",
+		etiqueta: item.etiqueta || ""
+	}));
+}
+
+async function fetchCatalogo() {
+	// Revalidación liviana: el navegador usa cache y revalida con ETag.
+	const res = await fetch(CATALOGO_URL, { cache: "no-cache" });
+	if (!res.ok) throw new Error(`HTTP ${res.status}`);
+	return await res.json();
+}
+
 async function cargarCatalogo() {
-	try {
-		const res = await fetch(`${CATALOGO_URL}?v=${Date.now()}`, { cache: "no-store" });
-		if (!res.ok) throw new Error(`HTTP ${res.status}`);
-		const data = await res.json();
-		const items = Array.isArray(data?.items) ? data.items : [];
-
-		productos = items.map(item => {
-			const talles = normalizarTalles(item.talles);
-			const imagenes = normalizarImagenes(item.imagenes);
-			return {
-				nombre: item.nombre || "",
-				club: item.club || "",
-				precio: Number(item.precio || 0),
-				talles,
-				descripcion: item.descripcion || "",
-				imagenes,
-				whatsapp: item.whatsapp || "",
-				instagram: item.instagram || "",
-				etiqueta: item.etiqueta || ""
-			};
-		});
-
+	// 1) Mostrar al instante desde cache si existe
+	const cached = loadCache();
+	if (cached) {
+		productos = mapearItems(cached);
 		productosFiltrados = productos.slice();
 		renderProductos();
+	}
+
+	// 2) Traer versión fresca en segundo plano
+	try {
+		const data = await fetchCatalogo();
+		const items = Array.isArray(data?.items) ? data.items : [];
+		const mapeado = mapearItems(items);
+
+		// Si no había cache o cambió el contenido, actualizamos UI y guardamos
+		if (!cached || JSON.stringify(cached) !== JSON.stringify(items)) {
+			productos = mapeado;
+			productosFiltrados = productos.slice();
+			renderProductos();
+			saveCache(items); // guardamos crudo (como viene del JSON)
+		}
 	} catch (err) {
+		if (!cached) {
+			// Sin cache y falló el fetch: mostramos aviso
+			grid.innerHTML = `
+				<div class="col-12">
+					<div class="alert alert-warning">
+						No pudimos cargar el catálogo. Reintentá en unos segundos o comunicate por WhatsApp/Instagram.
+					</div>
+				</div>`;
+		}
 		console.error("No se pudo cargar el catálogo:", err);
-		grid.innerHTML = `
-			<div class="col-12">
-				<div class="alert alert-warning">
-					No pudimos cargar el catálogo. Reintentá en unos segundos o comunicate por WhatsApp/Instagram.
-				</div>
-			</div>`;
 	}
 }
 
 cargarCatalogo();
-
 </script>
+
 
 
 </body>
