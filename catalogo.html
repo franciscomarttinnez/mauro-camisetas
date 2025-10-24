@@ -275,7 +275,7 @@ async function cargarCatalogo() {
 		productosFiltrados = productos.slice();
 		renderProductos();
 	}
-
+	
 	// 2) Traer versión fresca en segundo plano
 	try {
 		const data = await fetchCatalogo();
