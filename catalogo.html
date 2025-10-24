@@ -131,7 +131,8 @@
 <script>
 const CATALOGO_URL = "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/content/catalogo.json";
 const CACHE_KEY = "catalogo_v1";
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 1 día
+const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutos
+
 
 const grid = document.getElementById("gridProductos");
 const buscador = document.getElementById("buscador");
@@ -259,8 +260,9 @@ function mapearItems(items) {
 }
 
 async function fetchCatalogo() {
-	// Revalidación liviana: el navegador usa cache y revalida con ETag.
-	const res = await fetch(CATALOGO_URL, { cache: "no-cache" });
+	// cache-busting + sin usar caché del navegador
+	const url = `${CATALOGO_URL}?ts=${Date.now()}`;
+	const res = await fetch(url, { cache: "no-store" });
 	if (!res.ok) throw new Error(`HTTP ${res.status}`);
 	return await res.json();
 }
