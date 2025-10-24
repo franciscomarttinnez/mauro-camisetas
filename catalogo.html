@@ -129,10 +129,7 @@
 
 
 <script>
-
-
 const CATALOGO_URL = "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/content/catalogo.json";
-
 
 const grid = document.getElementById("gridProductos");
 const buscador = document.getElementById("buscador");
@@ -142,15 +139,28 @@ const ordenPrecio = document.getElementById("ordenPrecio");
 let productos = [];
 let productosFiltrados = [];
 
+/* ===== Helpers para URLs de imágenes ===== */
+function cdnToRaw(url) {
+	try {
+		return url.replace(
+			/^https:\/\/cdn\.jsdelivr\.net\/gh\/([^/]+)\/([^@]+)@([^/]+)\/(.+)$/,
+			"https://raw.githubusercontent.com/$1/$2/$3/$4"
+		);
+	} catch { return url; }
+}
 
 function normalizarTalles(raw) {
 	if (!Array.isArray(raw)) return [];
 	return raw.map(t => (typeof t === "object" && t.talle) ? t.talle : t);
 }
 
+/* Reemplaza la función original por esta */
 function normalizarImagenes(raw) {
 	if (!Array.isArray(raw)) return [];
-	return raw.map(img => (typeof img === "object" && img.imagen) ? img.imagen : img);
+	return raw.map(img => {
+		const url = (typeof img === "object" && img.imagen) ? img.imagen : img;
+		return url.includes("cdn.jsdelivr.net/gh/") ? cdnToRaw(url) : url;
+	});
 }
 
 function cardProducto(p, i) {
@@ -165,7 +175,7 @@ function cardProducto(p, i) {
 			 data-index="${i}" data-bs-toggle="modal" data-bs-target="#modalProducto">
 			${badge}
 			<div class="ratio ratio-1x1">
-				<img src="${primera}" class="rounded-top object-fit-cover" alt="${p.nombre}">
+				<img src="${primera}?v=${Date.now()}" class="rounded-top object-fit-cover" alt="${p.nombre}">
 			</div>
 			<div class="card-body text-center py-3">
 				<h6 class="fw-bold mb-1">${p.nombre}</h6>
@@ -178,7 +188,6 @@ function cardProducto(p, i) {
 function renderProductos() {
 	grid.innerHTML = productosFiltrados.map((p, i) => cardProducto(p, i)).join("");
 }
-
 
 function aplicarFiltros() {
 	const q = buscador.value.trim().toLowerCase();
@@ -201,7 +210,6 @@ buscador.addEventListener("input", aplicarFiltros);
 filtroEtiqueta.addEventListener("change", aplicarFiltros);
 ordenPrecio.addEventListener("change", aplicarFiltros);
 
-
 grid.addEventListener("click", (e) => {
 	const card = e.target.closest("[data-index]");
 	if (!card) return;
@@ -218,10 +226,9 @@ grid.addEventListener("click", (e) => {
 	const imgs = p.imagenes && p.imagenes.length ? p.imagenes : ["./assets/og-image.jpg"];
 	cont.innerHTML = imgs.map((src, i) => `
 		<div class="carousel-item ${i === 0 ? "active" : ""}">
-			<img src="${src}" class="d-block w-100" alt="">
+			<img src="${src}?v=${Date.now()}" class="d-block w-100" alt="">
 		</div>`).join("");
 });
-
 
 async function cargarCatalogo() {
 	try {
@@ -262,6 +269,7 @@ async function cargarCatalogo() {
 cargarCatalogo();
 
 </script>
+
 
 </body>
 </html>
