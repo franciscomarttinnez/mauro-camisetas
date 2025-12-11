@@ -111,6 +111,29 @@
       "talles": [
         "M"
       ]
+    },
+    {
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6378.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6381.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6375.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6377.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6379.jpeg"
+      ],
+      "precio": 28000,
+      "nombre": "Camiseta AFA entrenamiento blanca 2025/26",
+      "descripcion": "La camiseta que usa la selección Argentina para entrenar. Excelente calidad con escudo y marcas bordados y estampas en vinilo ",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "etiqueta": "Nuevo",
+      "club": "AFA ",
+      "talles": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ]
     }
   ]
 }
