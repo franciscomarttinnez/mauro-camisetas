@@ -48,6 +48,28 @@
         "XL",
         "XXL"
       ]
+    },
+    {
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6190.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6191.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6190.jpeg"
+      ],
+      "precio": 25000,
+      "nombre": "Camiseta AFA titular niños",
+      "descripcion": "Camisetas de la Selección Argentina para niños con el dorsal de Messi #10",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "etiqueta": "Nuevo",
+      "club": "AFA ",
+      "talles": [
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16"
+      ]
     }
   ]
 }
