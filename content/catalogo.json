@@ -299,6 +299,28 @@
         "M",
         "XXL"
       ]
+    },
+    {
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6383.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6382.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6384.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6374.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6366.jpeg"
+      ],
+      "precio": 34000,
+      "nombre": "Short con bolsillos AFA de entrenamiento 2025/26",
+      "descripcion": "El short con bolsillos que usará la selección Argentina en el próximo mundial. Con escudo bordado y bolsillos con cierre ",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "etiqueta": "Nuevo",
+      "club": "Afa",
+      "talles": [
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ]
     }
   ]
 }
