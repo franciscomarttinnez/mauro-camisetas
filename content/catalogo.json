@@ -437,6 +437,28 @@
         "XL",
         "XXL"
       ]
+    },
+    {
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6302.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6299.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6300.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6301.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6303.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6304.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6305.jpeg"
+      ],
+      "precio": 28000,
+      "nombre": "Camiseta Independiente Retro alternativa Ades",
+      "descripcion": "La camiseta alternativa del Rojo retro con el sponsor Ades ",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "etiqueta": "Nuevo",
+      "club": "Independiente ",
+      "talles": [
+        "M",
+        "L"
+      ]
     }
   ]
 }
