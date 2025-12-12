@@ -528,9 +528,23 @@
       ]
     },
     {
-      "etiqueta": "",
+      "etiqueta": "Nuevo",
       "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
-      "instagram": "https://www.instagram.com/mauro.camisetas.oficial"
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "nombre": "Camiseta Chaco For Ever titular 2024",
+      "club": "Chaco For Ever ",
+      "precio": 28000,
+      "talles": [
+        "S",
+        "M"
+      ],
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6275.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6273.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6276.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6277.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6278.jpeg"
+      ]
     }
   ]
 }
