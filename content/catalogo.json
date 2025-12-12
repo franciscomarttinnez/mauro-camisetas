@@ -719,6 +719,28 @@
         "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6228.jpeg",
         "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6229.jpeg"
       ]
+    },
+    {
+      "etiqueta": "Nuevo",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "nombre": "Camiseta Boca juniors retro 2011 alternativa ",
+      "club": "Boca juniors",
+      "precio": 28000,
+      "talles": [
+        "L",
+        "XL"
+      ],
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6210.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6207.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6208.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6209.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6211.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6212.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6213.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6214.jpeg"
+      ]
     }
   ]
 }
