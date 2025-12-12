@@ -741,6 +741,27 @@
         "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6213.jpeg",
         "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6214.jpeg"
       ]
+    },
+    {
+      "etiqueta": "Nuevo",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "nombre": "Camiseta Boca juniors Pre match 2023 papelitos",
+      "club": "Boca juniors",
+      "precio": 28000,
+      "talles": [
+        "S",
+        "L"
+      ],
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6196.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6193.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6194.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6195.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6197.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6198.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6199.jpeg"
+      ]
     }
   ]
 }
