@@ -564,6 +564,28 @@
         "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6262.jpeg",
         "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6264.jpeg"
       ]
+    },
+    {
+      "etiqueta": "Nuevo",
+      "whatsapp": "https://api.whatsapp.com/send/?phone=5493794040324&text=Hola%2C+quisiera+información+sobre&type=phone_number&app_absent=0",
+      "instagram": "https://www.instagram.com/mauro.camisetas.oficial",
+      "nombre": "Camiseta Chaco For Ever cumpleaños 113 años ",
+      "club": "Chaco For Ever ",
+      "precio": 28000,
+      "talles": [
+        "M",
+        "L ",
+        "XL ",
+        "XXL"
+      ],
+      "imagenes": [
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6268.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6265.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6266.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6267.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6269.jpeg",
+        "https://raw.githubusercontent.com/franciscomarttinnez/mauro-camisetas/main/assets/uploads/img_6270.jpeg"
+      ]
     }
   ]
 }
